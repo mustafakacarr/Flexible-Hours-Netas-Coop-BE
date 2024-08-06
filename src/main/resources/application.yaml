@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: FlexibleHours
+  datasource:
+    url: jdbc:postgresql://localhost:1224/flexible_hours
+    username: root
+    password: 123
+
+  jpa:
+    hibernate:
+      ddl-auto: update
