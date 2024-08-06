@@ -1,9 +1,7 @@
-
-package com.netas.InventorySystem.entities;
+package com.netas.coop.FlexibleHours.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.List;
 
 @Data
 @Entity

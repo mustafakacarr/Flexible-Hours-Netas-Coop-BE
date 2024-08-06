@@ -1,14 +1,17 @@
+package com.netas.coop.FlexibleHours.entities;
 
-
-
-package com.netas.InventorySystem.entities;
-
-import jakarta.persistence.;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.Data;
+import java.util.*;
 
 @Data
 @Entity
-@Table(name = work_times)
+@Table(name = "work_times")
 public class WorkTime {
 
     @Id
@@ -17,6 +20,6 @@ public class WorkTime {
 
     private String workHours;
 
-    @OneToMany(mappedBy = workTime)
-    private ListWorkCalendar workCalendars;
+    @OneToMany(mappedBy = "workTime")
+    private List<WorkCalendar> workCalendars;
 }
