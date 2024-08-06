@@ -1,8 +1,9 @@
-package com.netas.FlexibleHours.repositories;
+package com.netas.coop.FlexibleHours.repositories;
 
-import com.netas.FlexibleHours.entities.Management;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+
+import com.netas.coop.FlexibleHours.entities.Management;
 
 @Repository
 public interface ManagementRepository extends JpaRepository<Management, Long> {

@@ -3,6 +3,7 @@ package com.netas.coop.FlexibleHours.entities;
 import java.util.*;
 import jakarta.persistence.*;
 import lombok.Data;
+import com.netas.coop.FlexibleHours.enums.Role;
 
 @Data
 @Entity
@@ -26,8 +27,9 @@ public class User {
     private Management management;
 
     @OneToMany(mappedBy = "user")
-    private List<Authority> authorities;
-
-    @OneToMany(mappedBy = "user")
     private List<Permission> permissions;
+
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Set<Role> authorities;
 }

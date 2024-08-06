@@ -12,7 +12,7 @@ public class Permission {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long permissionId;
 
-    private String date;
+    private long date;
 
     private String explanation;
 
