@@ -5,16 +5,18 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "authorities")
-public class Authority {
+@Table(name = "off_days")
+public class OffDayEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long authorityId;
+    private long id;
 
-    private String authorityRole;
+    private long date;
+
+    private String description;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserEntity userEntity;
 }

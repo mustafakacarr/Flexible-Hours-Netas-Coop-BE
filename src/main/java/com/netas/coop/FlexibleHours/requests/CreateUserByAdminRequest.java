@@ -3,13 +3,16 @@ package com.netas.coop.FlexibleHours.requests;
 import com.netas.coop.FlexibleHours.enums.*;
 import lombok.Data;
 
-@Data
-public class CreateUserByAdminRequest {
-    private String fullName;
-    private String email;
 
-    private String password;
-    private Role role;
-    
-    
+public record CreateUserByAdminRequest(
+        String fullName,
+        String email,
+        String password,
+        Role role,
+        long departmentId,
+        long unitId,
+        long registrationNumber
+) {
+
+
 }

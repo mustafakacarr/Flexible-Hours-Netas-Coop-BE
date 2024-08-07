@@ -6,19 +6,19 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "work_calendars")
-public class WorkCalendar {
+public class WorkCalendarEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long recordId;
+    private long id;
 
     private String date;
 
     @ManyToOne
     @JoinColumn(name = "work_time_id")
-    private WorkTime workTime;
+    private WorkTimeEntity workTimeEntity;
 
     @ManyToOne
-    @JoinColumn(name = "special_date_id")
-    private SpecialDate specialDate;
+    @JoinColumn(name = "user_id")
+    private UserEntity userEntity;
 }

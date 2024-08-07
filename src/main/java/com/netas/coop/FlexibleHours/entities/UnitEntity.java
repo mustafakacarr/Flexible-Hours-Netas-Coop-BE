@@ -2,19 +2,17 @@ package com.netas.coop.FlexibleHours.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import java.util.*;
 
 @Data
 @Entity
 @Table(name = "managements")
-public class Management {
+public class UnitEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long managementId;
+    private long id;
 
-    private String managementName;
+    private String name;
 
-    @OneToMany(mappedBy = "management")
-    private List<Department> departments;
+
 }

@@ -5,7 +5,9 @@ import java.util.stream.Collectors;
 
 import com.netas.coop.FlexibleHours.repositories.UserRepository;
 import com.netas.coop.FlexibleHours.responses.UserResponse;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
     private final UserRepository userRepository;
 
@@ -18,6 +20,6 @@ public class UserService {
     }
 
     public UserResponse getUserById(long userId) {
-        return new UserResponse(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId)));
+        return new UserResponse(userRepository.findById(userId).orElseThrow(() -> new RuntimeException("UserEntity not found with id: " + userId)));
     }
 }

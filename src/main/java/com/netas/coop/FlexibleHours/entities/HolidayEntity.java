@@ -5,14 +5,15 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "special_dates")
-public class SpecialDate {
+@Table(name = "holidays")
+public class HolidayEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long specialId;
+    private long id;
 
-    private String specialDate;
+    private long startDate;
+    private long endDate;
 
     private String name;
 }

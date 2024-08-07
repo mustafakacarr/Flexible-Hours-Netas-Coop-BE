@@ -11,7 +11,7 @@ import com.netas.coop.FlexibleHours.responses.UserResponse;
 import com.netas.coop.FlexibleHours.services.UserService;
 
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("api/v1.0/users")
 public class UserController {
     private final UserService userService;
 
