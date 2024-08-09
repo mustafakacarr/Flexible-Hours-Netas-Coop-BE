@@ -3,8 +3,9 @@ package com.netas.coop.FlexibleHours.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import javax.management.relation.Role;
 import java.util.Set;
+
+import com.netas.coop.FlexibleHours.enums.Role;
 
 @Data
 @Entity
@@ -16,7 +17,7 @@ public class UserEntity {
     private long id;
 
     private String fullName;
-
+    private String password;
     private String email;
 
     private String registrationNumber;
