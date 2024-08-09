@@ -1,7 +1,7 @@
 package com.netas.coop.FlexibleHours.services;
 
-import com.netas.coop.FlexibleHours.entities.WorkCalendarEntity;
-import com.netas.coop.FlexibleHours.repositories.WorkCalendarRepository;
+import com.netas.coop.FlexibleHours.entities.WorkTimeEntity;
+import com.netas.coop.FlexibleHours.repositories.WorkTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -9,32 +9,30 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class WorkCalendarService {
+public class WorkTimeService {
 
     @Autowired
-    private WorkCalendarRepository workCalendarRepository;
+    private WorkTimeRepository workTimeRepository;
 
-    public List<WorkCalendarEntity> getAllWorkCalendars() {
-        return workCalendarRepository.findAll();
+    public List<WorkTimeEntity> getAllWorkTimes() {
+        return workTimeRepository.findAll();
     }
 
-    public Optional<WorkCalendarEntity> getWorkCalendarById(long id) {
-        return workCalendarRepository.findById(id);
+    public Optional<WorkTimeEntity> getWorkTimeById(long id) {
+        return workTimeRepository.findById(id);
     }
 
-    public WorkCalendarEntity createWorkCalendar(WorkCalendarEntity workCalendar) {
-        return workCalendarRepository.save(workCalendar);
+    public WorkTimeEntity createWorkTime(WorkTimeEntity workTime) {
+        return workTimeRepository.save(workTime);
     }
 
-    public WorkCalendarEntity updateWorkCalendar(long id, WorkCalendarEntity workCalendarDetails) {
-        WorkCalendarEntity workCalendar = workCalendarRepository.findById(id).orElseThrow(() -> new RuntimeException("Work calendar not found"));
-        workCalendar.setDate(workCalendarDetails.getDate());
-        workCalendar.setWorkTimeEntity(workCalendarDetails.getWorkTimeEntity());
-        workCalendar.setUserEntity(workCalendarDetails.getUserEntity());
-        return workCalendarRepository.save(workCalendar);
+    public WorkTimeEntity updateWorkTime(long id, WorkTimeEntity workTimeDetails) {
+        WorkTimeEntity workTime = workTimeRepository.findById(id).orElseThrow(() -> new RuntimeException("Work time not found"));
+        workTime.setWorkHours(workTimeDetails.getWorkHours());
+        return workTimeRepository.save(workTime);
     }
 
-    public void deleteWorkCalendar(long id) {
-        workCalendarRepository.deleteById(id);
+    public void deleteWorkTime(long id) {
+        workTimeRepository.deleteById(id);
     }
 }

@@ -3,6 +3,8 @@ package com.netas.coop.FlexibleHours.controllers;
 import com.netas.coop.FlexibleHours.dtos.WorkTimeRequest;
 import com.netas.coop.FlexibleHours.dtos.WorkTimeResponse;
 import com.netas.coop.FlexibleHours.entities.WorkTimeEntity;
+import com.netas.coop.FlexibleHours.requests.WorkTimeRequest;
+import com.netas.coop.FlexibleHours.responses.WorkTimeResponse;
 import com.netas.coop.FlexibleHours.services.WorkTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
