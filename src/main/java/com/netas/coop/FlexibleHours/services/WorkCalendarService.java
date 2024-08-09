@@ -2,7 +2,6 @@ package com.netas.coop.FlexibleHours.services;
 
 import com.netas.coop.FlexibleHours.entities.WorkCalendarEntity;
 import com.netas.coop.FlexibleHours.repositories.WorkCalendarRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
