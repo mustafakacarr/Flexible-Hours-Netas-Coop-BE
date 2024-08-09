@@ -11,9 +11,12 @@ import java.util.Optional;
 @Service
 public class WorkCalendarService {
 
-    @Autowired
+
     private WorkCalendarRepository workCalendarRepository;
 
+    public WorkCalendarService(WorkCalendarRepository workCalendarRepository) {
+        this.workCalendarRepository = workCalendarRepository;
+    }
     public List<WorkCalendarEntity> getAllWorkCalendars() {
         return workCalendarRepository.findAll();
     }

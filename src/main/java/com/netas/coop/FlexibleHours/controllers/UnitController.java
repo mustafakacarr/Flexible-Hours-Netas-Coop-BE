@@ -1,54 +1,46 @@
 package com.netas.coop.FlexibleHours.controllers;
 
-import com.netas.coop.FlexibleHours.entities.UnitEntity;
+import com.netas.coop.FlexibleHours.requests.CreateUnitRequest;
+import com.netas.coop.FlexibleHours.requests.UpdateUnitRequest;
+import com.netas.coop.FlexibleHours.responses.UnitResponse;
 import com.netas.coop.FlexibleHours.services.UnitService;
-import com.netas.coop.FlexibleHours.dtos.UnitRequest;
-import com.netas.coop.FlexibleHours.dtos.UnitResponse;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/units")
+@RequestMapping("/api/v1.0/units")
 public class UnitController {
-
-    @Autowired
     private UnitService unitService;
+
+    public UnitController(UnitService unitService) {
+        this.unitService = unitService;
+    }
 
     @GetMapping
     public List<UnitResponse> getAllUnits() {
-        return unitService.getAllUnits().stream()
-                .map(UnitResponse::fromEntity)
-                .collect(Collectors.toList());
+        return unitService.getAllUnits();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UnitResponse> getUnitById(@PathVariable long id) {
-        return unitService.getUnitById(id)
-                .map(unit -> ResponseEntity.ok(UnitResponse.fromEntity(unit)))
-                .orElse(ResponseEntity.notFound().build());
+    public UnitResponse getUnitById(@PathVariable long id) {
+        return unitService.getUnitById(id);
+
     }
 
     @PostMapping
-    public UnitResponse createUnit(@RequestBody UnitRequest request) {
-        UnitEntity unit = new UnitEntity();
-        unit.setName(request.name());
-        return UnitResponse.fromEntity(unitService.createUnit(unit));
+    public UnitResponse createUnit(@RequestBody CreateUnitRequest request) {
+        return unitService.createUnit(request);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<UnitResponse> updateUnit(@PathVariable long id, @RequestBody UnitRequest request) {
-        UnitEntity unit = new UnitEntity();
-        unit.setName(request.name());
-        return ResponseEntity.ok(UnitResponse.fromEntity(unitService.updateUnit(id, unit)));
+    public UnitResponse updateUnit(@PathVariable long id, @RequestBody UpdateUnitRequest request) {
+        return unitService.updateUnit(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteUnit(@PathVariable long id) {
+    public void deleteUnit(@PathVariable long id) {
         unitService.deleteUnit(id);
-        return ResponseEntity.noContent().build();
+
     }
 }

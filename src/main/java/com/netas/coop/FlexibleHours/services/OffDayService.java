@@ -25,38 +25,40 @@ public class OffDayService {
     }
 
     public List<OffDayResponse> getAll() {
-        return offDayRepository.findAll().stream().map(this::mapToResponse).collect(Collectors.toList());
+        return offDayRepository.findAll().stream().map((offDay) -> new OffDayResponse(offDay)).collect(Collectors.toList());
     }
 
     public OffDayResponse getById(long id) {
-        return offDayRepository.findById(id).map(this::mapToResponse).orElseThrow();
+        OffDayEntity offDay = offDayRepository.findById(id).orElseThrow(() -> new RuntimeException("Off day not found"));
+        return new OffDayResponse(offDay);
     }
 
     public OffDayResponse create(CreateOffDayRequest request) {
         OffDayEntity offDay = new OffDayEntity();
-        offDay.setDate(request.date());
+
+        offDay.setStartDate(request.startDate());
+        offDay.setEndDate(request.endDate());
         offDay.setDescription(request.description());
         UserEntity user = userRepository.findById(request.userId())
-                                        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
         offDay.setUserEntity(user);
-        return mapToResponse(offDayRepository.save(offDay));
+        return new OffDayResponse(offDayRepository.save(offDay));
     }
 
     public OffDayResponse update(UpdateOffDayRequest request) {
         OffDayEntity offDay = offDayRepository.findById(request.id()).orElseThrow();
-        offDay.setDate(request.date());
+
+        offDay.setStartDate(request.startDate());
+        offDay.setEndDate(request.endDate());
         offDay.setDescription(request.description());
         UserEntity user = userRepository.findById(request.userId())
-                                        .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new RuntimeException("User not found"));
         offDay.setUserEntity(user);
-        return mapToResponse(offDayRepository.save(offDay));
+        return new OffDayResponse(offDayRepository.save(offDay));
     }
 
     public void delete(long id) {
         offDayRepository.deleteById(id);
     }
 
-    private OffDayResponse mapToResponse(OffDayEntity entity) {
-        return new OffDayResponse(entity.getId(), entity.getDate(), entity.getDescription(), entity.getUserEntity().getId());
-    }
 }

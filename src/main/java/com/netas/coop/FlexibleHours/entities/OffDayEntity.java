@@ -12,7 +12,8 @@ public class OffDayEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long date;
+    private long startDate;
+    private long endDate;
 
     private String description;
 

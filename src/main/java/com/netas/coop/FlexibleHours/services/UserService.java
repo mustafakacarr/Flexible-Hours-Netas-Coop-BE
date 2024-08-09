@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.netas.coop.FlexibleHours.configuration.PasswordEncoderConfig;
 import com.netas.coop.FlexibleHours.repositories.UserRepository;
 import com.netas.coop.FlexibleHours.entities.UserEntity;
 import com.netas.coop.FlexibleHours.enums.Role;
@@ -16,9 +17,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoderConfig passwordEncoder;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoderConfig passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -31,17 +32,17 @@ public class UserService {
         return new UserResponse(userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("UserEntity not found with id: " + userId)));
     }
-/*
+
     public UserResponse getUserByUsername(String username) {
         return new UserResponse(userRepository.findByUsername(username)
             .orElseThrow(() -> new RuntimeException("UserEntity not found with username: " + username)));
-    }*/
+    }
 
     public UserResponse createUser(CreateUserByAdminRequest request) {
         UserEntity userEntity = new UserEntity();
         userEntity.setFullName(request.fullName());
         userEntity.setEmail(request.email());
-        userEntity.setPassword(passwordEncoder.encode(request.password()));
+        userEntity.setPassword(passwordEncoder.getEncoder().encode(request.password()));
         userEntity.setRegistrationNumber(request.registrationNumber());
         userEntity.setDepartmentEntity(request.departmentEntity());
         userEntity.setUnitEntity(request.unitEntity());
@@ -54,7 +55,7 @@ public class UserService {
     }
     
 
-    public UserEntity updateUser(long userId, UpdateUserRequest userRequest) {
+    public UserResponse updateUser(long userId, UpdateUserRequest userRequest) {
         UserEntity existingUser = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
         existingUser.setFullName(userRequest.fullName());
 
@@ -63,20 +64,20 @@ public class UserService {
         Set<Role> authorities = new HashSet<>();
         authorities.add(userRequest.role());
 
-        return userRepository.save(existingUser);
+        return new UserResponse(userRepository.save(existingUser));
     }
 
     public void deleteUser(long userId) {
         userRepository.deleteById(userId);
     }
 
-    public void changePassword(long userId, ChangePasswordRequest request) {
+    public UserResponse changePassword(long userId, ChangePasswordRequest request) {
         UserEntity userEntity = userRepository.findById(userId)
             .orElseThrow(() -> new RuntimeException("UserEntity not found with id: " + userId));
-        if (!passwordEncoder.matches(request.oldPassword(), userEntity.getPassword())) {
+        if (!passwordEncoder.getEncoder().matches(request.oldPassword(), userEntity.getPassword())) {
             throw new RuntimeException("Old password is incorrect.");
         }
-        userEntity.setPassword(passwordEncoder.encode(request.newPassword()));
-        userRepository.save(userEntity);
+        userEntity.setPassword(passwordEncoder.getEncoder().encode(request.newPassword()));
+        return new UserResponse(userRepository.save(userEntity));
     }
 }

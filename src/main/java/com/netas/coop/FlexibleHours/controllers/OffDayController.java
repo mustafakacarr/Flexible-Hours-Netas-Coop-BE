@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/off-days")
+@RequestMapping("/api/v1.0/off-days")
 public class OffDayController {
 
     private final OffDayService offDayService;

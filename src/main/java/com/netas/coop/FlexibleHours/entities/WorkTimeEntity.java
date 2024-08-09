@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
+import java.time.LocalTime;
+
 @Data
 @Entity
 @Table(name = "work_times")
@@ -16,6 +18,7 @@ public class WorkTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String workHours;
+    private LocalTime startTime;
+    private LocalTime endTime;
     //f.e. 09:00-18:00
 }

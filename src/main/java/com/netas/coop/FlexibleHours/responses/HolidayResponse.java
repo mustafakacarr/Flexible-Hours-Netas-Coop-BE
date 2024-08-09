@@ -1,5 +1,8 @@
 package com.netas.coop.FlexibleHours.responses;
 
+import lombok.Data;
+
+@Data
 public class HolidayResponse {
     private long id;
     private long startDate;

@@ -1,7 +1,7 @@
 package com.netas.coop.FlexibleHours.requests;
 
-public record WorkTimeRequest() {
-    public String workHours() {
-        return null;
-    }
+import java.time.LocalTime;
+
+public record WorkTimeRequest(LocalTime startTime, LocalTime endTime) {
+
 }
